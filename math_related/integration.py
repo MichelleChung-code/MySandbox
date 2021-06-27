@@ -6,7 +6,7 @@ def f_test(x):
     return np.cos(x) + 4 * x
 
 
-# integration limits
+# integration methods available to use
 dict_integration_methods = {'fixed_quad': sci.fixed_quad,  # fixed gaussian quadrature
                             'quad': sci.quad,  # adaptive quadrature
                             'romberg': sci.romberg,  # romberg integration
@@ -14,10 +14,42 @@ dict_integration_methods = {'fixed_quad': sci.fixed_quad,  # fixed gaussian quad
 
 
 def numerical_integration(f, a, b, type):
+    """
+
+    Args:
+        f: <function> to integrate
+        a: <float> lower interval bound
+        b: <float> upper interval bound
+        type: <str> type of numerical integrator to use.  Needs to be a key in dict_integration_methods
+
+    Returns:
+        result of specified scipy integrate method call
+    """
     if not dict_integration_methods.get(type, False):
         raise KeyError('Invalid Numerical Integration Type Requested')
 
     return dict_integration_methods[type](f, a, b)
+
+
+def monte_carlo_estimation(num_estimations: int, f, a: float, b: float):
+    """
+
+    Args:
+        num_estimations: <int> number of random x values within (a, b) to evaluate the integration function at
+        f: <function> to integrate
+        a: <float> lower interval bound
+        b: <float> upper interval bound
+
+    Returns:
+        <float> integration estimation
+
+    """
+    # get random values of x between integral limits
+    x = np.random.uniform(low=a, high=b, size=(num_estimations,))
+
+    # return the average function value over the integration interval multiplied by the interval length
+    return np.sum(f(x)) / len(x) * (b - a)
+
 
 if __name__ == '__main__':
     a = 0.5
@@ -25,3 +57,4 @@ if __name__ == '__main__':
     print(numerical_integration(f_test, a, b, 'fixed_quad'))
     print(numerical_integration(f_test, a, b, 'quad'))
     print(numerical_integration(f_test, a, b, 'romberg'))
+    print(monte_carlo_estimation(10000, f_test, a, b))
