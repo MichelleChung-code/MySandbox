@@ -1,5 +1,6 @@
 import scipy.integrate as sci
 import numpy as np
+import sympy as sy
 
 
 def f_test(x):
@@ -51,6 +52,38 @@ def monte_carlo_estimation(num_estimations: int, f, a: float, b: float):
     return np.sum(f(x)) / len(x) * (b - a)
 
 
+def sympy_integration(a, b, f, x=sy.Symbol('x')):
+    """
+    Evaluate the integral using Sympy
+
+    Args:
+        a: <float> lower interval bound
+        b: <float> upper interval bound
+        f: <sympy> function to evaluate
+        x: <sympy.Symbol> for x
+
+    Returns:
+        <float> integration result of f, evaluated using a and b limits
+    """
+    integrated = sy.integrate(f, x)
+
+    Fa = integrated.subs(x, a).evalf()
+    Fb = integrated.subs(x, b).evalf()
+
+    # or using dictionary for limits
+    a_lim = sy.Symbol('a_lim')
+    b_lim = sy.Symbol('b_lim')
+
+    integrated_symbolic = sy.integrate(f, (x, a_lim, b_lim))
+    dict_sol = integrated_symbolic.subs({a_lim: a, b_lim: b}).evalf()
+
+    # results in the same value
+    assert Fb - Fa == dict_sol == sy.integrate(f, (x, a, b))
+    assert integrated.diff() == f  # derivative of the antiderivative yields the original function
+
+    return Fb - Fa
+
+
 if __name__ == '__main__':
     a = 0.5
     b = 9.5
@@ -58,3 +91,7 @@ if __name__ == '__main__':
     print(numerical_integration(f_test, a, b, 'quad'))
     print(numerical_integration(f_test, a, b, 'romberg'))
     print(monte_carlo_estimation(10000, f_test, a, b))
+
+    x = sy.Symbol('x')
+    f = sy.cos(x) + 4 * x
+    print(sympy_integration(a, b, f))
