@@ -24,6 +24,10 @@ class Stack:
 if __name__ == '__main__':
     s = Stack()
     s.push('blah')
+    s.push(7)
+    s.push({'zzz'})
     print(s)
     print(s.peek())
-
+    print(s.size())
+    print(s.pop())
+    print(s)
