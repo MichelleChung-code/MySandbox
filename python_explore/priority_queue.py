@@ -19,10 +19,6 @@ class PriorityQueue:
     def __repr__(self):
         return f'{self.__class__.__name__}({self.elements})'
 
-    def peek(self):
-        # return the highest priority elem
-        return self.elements[0][1]
-
 
 if __name__ == '__main__':
     pq = PriorityQueue()
@@ -38,7 +34,6 @@ if __name__ == '__main__':
     # the following returns PriorityQueue([(1, 'p1'), (2, 'p2'), (4, 'p4'), (3, 'p3')])
     print(pq)
 
-    print(pq.peek())
     print(pq.get())
     print(pq.get())
     print(pq.get())
