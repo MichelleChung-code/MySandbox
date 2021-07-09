@@ -21,6 +21,7 @@ class Stack:
     def __repr__(self):
         return f'{self.__class__.__name__}({self.elements})'
 
+
 if __name__ == '__main__':
     s = Stack()
     s.push('blah')
@@ -31,3 +32,4 @@ if __name__ == '__main__':
     print(s.size())
     print(s.pop())
     print(s)
+    print(s.size())
