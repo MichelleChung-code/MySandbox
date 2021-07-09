@@ -23,13 +23,14 @@ class Stack:
 
 
 if __name__ == '__main__':
+    word = 'Michelle'
     s = Stack()
-    s.push('blah')
-    s.push(7)
-    s.push({'zzz'})
-    print(s)
-    print(s.peek())
-    print(s.size())
-    print(s.pop())
-    print(s)
-    print(s.size())
+    for w in word:
+        s.push(w)
+
+    sol = ''
+    while not s.is_empty():
+        sol += s.pop()
+
+    # reverse a string with a stack 
+    assert sol == word[::-1]
