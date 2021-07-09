@@ -32,11 +32,15 @@ if __name__ == '__main__':
 
     pq.put('p2', 2)
     pq.put('p1', 1)
+    pq.put('p4', 4)
     pq.put('p3', 3)
+    # order only guarentees that the first element is the highest priority
+    # the following returns PriorityQueue([(1, 'p1'), (2, 'p2'), (4, 'p4'), (3, 'p3')])
+    print(pq)
 
     print(pq.peek())
-    # print(pq.get())
-    # print(pq.get())
-    # print(pq.get())
+    print(pq.get())
+    print(pq.get())
+    print(pq.get())
 
     print(pq)
