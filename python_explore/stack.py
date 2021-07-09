@@ -32,5 +32,5 @@ if __name__ == '__main__':
     while not s.is_empty():
         sol += s.pop()
 
-    # reverse a string with a stack 
+    # reverse a string with a stack
     assert sol == word[::-1]
