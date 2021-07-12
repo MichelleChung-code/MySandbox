@@ -22,3 +22,4 @@ y = Singleton(Name='fren')
 
 # Will have both x and y
 print(y)
+assert str(y) == "Singleton({'Greeting': 'henlo', 'Name': 'fren'})"
