@@ -6,3 +6,5 @@ python -m line_profiler prof.py.lprof
 
 @REM For using memory_profiler (prof.py also needs to have the profile decorator here)
 python -m memory_profiler prof.py
+mprof run prof.py
+mprof plot name_of_file_generated_in_prev_step.dat
