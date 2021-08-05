@@ -23,17 +23,22 @@ def get_key_statistics(arr):
             'kurtosis': stats.kurtosis}
 
 
-def is_normal(arr):
+def is_normal(arr, check_is_lognormal=False):
     """
     Return whether the input array is normally distributed
     Based on whether p-value of skew, kurtosis, and normal tests are above 0.05
 
     Args:
         arr: <np.Array> to evaluate
+        check_is_lognormal: <bool> if wanting to check whether distribution is lognormal
 
     Returns:
         <bool> whether the input is normally distributed
     """
+    if check_is_lognormal:
+        arr = np.log(arr)
+        print('Checking for log-normality...')
+
     norm_p = scs.normaltest(arr).pvalue
     kurt_p = scs.normaltest(arr).pvalue
     skew_p = scs.skewtest(arr).pvalue
@@ -48,4 +53,4 @@ def is_normal(arr):
 if __name__ == '__main__':
     arr = np.random.normal(loc=50, scale=10, size=1000)
     pprint(get_key_statistics(arr))
-    print(is_normal(arr))
+    print(is_normal(arr, check_is_lognormal=False))
