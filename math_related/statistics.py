@@ -1,6 +1,8 @@
 import scipy.stats as scs
 import numpy as np
 from pprint import pprint
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
 
 
 def get_key_statistics(arr):
@@ -54,3 +56,7 @@ if __name__ == '__main__':
     arr = np.random.normal(loc=50, scale=10, size=1000)
     pprint(get_key_statistics(arr))
     print(is_normal(arr, check_is_lognormal=False))
+
+    sm.qqplot(arr, line='s')  # if lie on straight line --> indicates normality 
+    plt.grid(True)
+    plt.show()
