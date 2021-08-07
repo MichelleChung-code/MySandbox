@@ -57,6 +57,6 @@ if __name__ == '__main__':
     pprint(get_key_statistics(arr))
     print(is_normal(arr, check_is_lognormal=False))
 
-    sm.qqplot(arr, line='s')  # if lie on straight line --> indicates normality 
+    sm.qqplot(arr, line='s')  # if lie on straight line --> indicates normality
     plt.grid(True)
     plt.show()
