@@ -1,7 +1,9 @@
 from timing_dec import timing
 import multiprocessing as mp
-import random
 
+import random
+# multiprocessing internally seeds when it sees the python random package in the namespace
+# however, if using the numpy random module... need to make sure to explicitly seed.
 
 def calc_inside_quarter_circ(num_experiments):
     """
