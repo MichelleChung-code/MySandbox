@@ -40,7 +40,9 @@ def calc_inside_quarter_circ_np(num_experiments):
         <int> number of tries that ended up in the quarter circle
 
     """
-    np.random.seed()  # explicitly set seed to ensure that each of the forked processes generate a unique sequence of random numbers
+    # explicitly set seed to ensure that each of the forked processes generate a unique sequence of
+    # random numbers
+    np.random.seed()
 
     x = np.random.uniform(0, 1, int(num_experiments))
     y = np.random.uniform(0, 1, int(num_experiments))
