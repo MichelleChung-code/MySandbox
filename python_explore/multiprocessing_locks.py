@@ -40,7 +40,30 @@ def run_process(file, counts):
     os.system('more ' + file)  # view contents of the file
 
 
+def increment_val(counts_per_process, val, lock):
+    for i in range(counts_per_process):
+        with lock:
+            val.value += 1
+
+@timing
+def run_increments():
+    num_cores = mp.cpu_count()
+    in_val = mp.Value('i', 0)
+    lock = mp.Lock()
+
+    process_ls = []
+    for p in range(num_cores):
+        proc = mp.Process(target=increment_val, args=(1000, in_val, lock))
+        proc.start()
+        process_ls.append(proc)
+
+    for p in process_ls:
+        p.join()  # wait for all the processes to complete before moving on in code
+
+    print(in_val.value)
+
 if __name__ == '__main__':
     FILENAME = 'multiprocessing_locks.txt'
     COUNTS = 1000
     run_process(FILENAME, COUNTS)
+    run_increments()
