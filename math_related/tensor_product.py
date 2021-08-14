@@ -3,20 +3,20 @@ import numpy as np
 
 def tensor_prod(A, B):
     # https://www.math3ma.com/blog/the-tensor-product-demystified
-    res_arr = []
+    manual_arr = []
 
     for A_elem in A:
         for B_elem in B:
-            res_arr.append(A_elem * B_elem)
+            manual_arr.append(A_elem * B_elem)
 
-    res_arr2 = np.outer(A, B)
-    res_arr2 = res_arr2.reshape(res_arr2.size)
+    # Technically also called the outer product
+    outer_arr_np = np.outer(A, B)
 
     res = np.tensordot(A, B, axes=0)  # axes = 0 for tensor product
-    res = res.reshape(res.size)  # matrix vector duality
 
-    assert (np.array(res_arr) == res).all()
-    assert (res_arr2 == res).all()
+    res_arr = np.array(manual_arr).reshape(res.shape)  # matrix-vector duality
+
+    assert np.logical_and((res_arr == outer_arr_np).all(), (res == res_arr).all())
     return res
 
 
